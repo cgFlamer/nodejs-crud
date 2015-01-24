@@ -20,7 +20,16 @@ var Article		= require('./models/Article.js');
 /** define article's SOAP service */
 function ArticleService() {}
 ArticleService.prototype.delete = function(id) {
-	console.log('Provided ID: ' + id);
+	var response = 0;
+	Article.findOneAndRemove(
+		{ '_id' : id },
+		function(err, article) {
+			if(!err) {
+				response = 1;
+			}
+		}
+	);
+	return response;
 }
 
 /** create SOAP server */
